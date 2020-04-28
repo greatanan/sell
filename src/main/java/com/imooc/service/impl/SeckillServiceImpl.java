@@ -45,11 +45,11 @@ public class SeckillServiceImpl {
 
     public void orderProductMockDiffUser(String productId ){
 
-        //加锁
+        //当前时间加上超时时间
         long time = System.currentTimeMillis()+TIMEOUT;
 
-        //如果加锁失败
         if(!redisLock.lock(productId,String.valueOf(time))){
+            //如果加锁失败
             throw new SellException(101,"当前抢购人员过多！");
         }
 
